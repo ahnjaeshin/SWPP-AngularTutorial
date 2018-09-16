@@ -1,9 +1,18 @@
 <h2>My Heroes</h2>
 <ul class="heroes">
   <li *ngFor="let hero of heroes"
-    [class.selected]="hero === selectedHero"
-    (click)="onSelect(hero)">
-    <span class="badge">{{hero.id}}</span> {{hero.name}}
+      [class.selected]="hero === selectedHero"
+      (click)="onSelect(hero)">
+
+    <span class="badge">{{hero.id}}</span>
+
+    <ng-container *ngIf="hero.initial; else show_full_name">
+      {{hero.name | slice:0:2}}
+    </ng-container>
+    <ng-template #show_full_name>
+      {{hero.name}}
+    </ng-template>
+
   </li>
 </ul>
 
@@ -16,5 +25,9 @@
       <input [(ngModel)]="selectedHero.name" placeholder="name">
     </label>
   </div>
-
+  <div>
+    <label> use initial?
+      <input [(ngModel)]="selectedHero.initial" type="checkbox"/>
+    </label>
+  </div>
 </div>
