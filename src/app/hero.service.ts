@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
-
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
 import { MessageService } from './message.service';
@@ -14,18 +11,17 @@ export class HeroService {
 
   constructor(private messageService: MessageService) { }
 
-  getHeroes(): Observable<Hero[]> {
-    this.messageService.add('HeroService: fetched heroes');
-    return of(HEROES).pipe(
-      delay(1000),
-      map((heroes: Hero[]) =>
-        heroes.map((hero: Hero) => ({...hero, initial: false}))
-      ),
-    );
+  getHeroes(): Promise<Hero[]> {
+    return new Promise(resolve => {
+      this.messageService.add('HeroService: fetched heroes');
+      resolve(HEROES);
+    });
   }
 
-  getHero(id: number): Observable<Hero> {
-    this.messageService.add(`HeroService: fetched hero id=${id}`);
-    return of(HEROES.find(hero => hero.id === id));
+  getHero(id: number): Promise<Hero> {
+    return new Promise(resolve => {
+      this.messageService.add(`HeroService: fetched hero id=${id}`);
+      resolve(HEROES.find(hero => hero.id === id));
+    });
   }
 }
