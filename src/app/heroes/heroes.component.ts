@@ -4,11 +4,13 @@ import { HEROES } from '../mock-heroes';
 
 import { LoggingService } from '../logging.service';
 
-
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+  styleUrls: ['./heroes.component.css'],
+  providers: [
+    LoggingService
+  ],
 })
 export class HeroesComponent implements OnInit {
 
