@@ -13,9 +13,14 @@ export class HeroService {
 
   constructor(private messageService: MessageService) { }
 
-  getHeroes(): Observable<Hero[]> {
-    // TODO: send the message _after_ fetching the heroes
+  sleep (delay: number): void {
+    const start = new Date().getTime();
+    while (new Date().getTime() < start + delay) {}
+  }
+
+  getHeroes(): Hero[] {
     this.messageService.add('HeroService: fetched heroes');
-    return of(HEROES);
+    this.sleep(5000);
+    return HEROES;
   }
 }
