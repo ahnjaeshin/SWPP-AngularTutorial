@@ -13,14 +13,10 @@ export class HeroService {
 
   constructor(private messageService: MessageService) { }
 
-  sleep (delay: number): void {
-    const start = new Date().getTime();
-    while (new Date().getTime() < start + delay) {}
-  }
-
-  getHeroes(): Hero[] {
+  getHeroes(): Promise<Hero[]> {
     this.messageService.add('HeroService: fetched heroes');
-    this.sleep(5000);
-    return HEROES;
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve.bind(null, HEROES), 5000);
+    });
   }
 }
