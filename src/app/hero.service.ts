@@ -70,6 +70,15 @@ export class HeroService {
       .catch(this.handleError<Hero>('deleteHero'));
   }
 
+  /* GET heroes whose name contains search term */
+  searchHeroes(term: string): Promise<Hero[]> {
+    if (!term.trim()) {
+      return Promise.resolve([]);
+    }
+    return this.getHeroes()
+      .then((heroes: Hero[]) => heroes.filter((hero: Hero) => hero.name.includes(term)));
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
