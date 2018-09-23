@@ -13,10 +13,13 @@ export class HeroService {
 
   constructor(private messageService: MessageService) { }
 
-  getHeroes(): Promise<Hero[]> {
-    this.messageService.add('HeroService: fetched heroes');
-    return new Promise((resolve, reject) => {
-      setTimeout(resolve.bind(null, HEROES), 5000);
-    });
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async getHeroes(): Promise<Hero[]> {
+    await this.sleep(5000);
+    await this.messageService.add('HeroService: fetched heroes');
+    return HEROES;
   }
 }
