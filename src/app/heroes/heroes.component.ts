@@ -4,12 +4,20 @@ import { HEROES } from '../mock-heroes';
 
 import { LoggingService } from '../logging.service';
 
+// Don't have to use @Injectable as this class has no dependency
+export class MockLoggingService extends LoggingService {
+  log(msg: string): void {
+    console.error(msg);
+    this.messages.push(`Logging to error`, msg);
+  }
+}
+
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css'],
   providers: [
-    LoggingService
+    { provide: LoggingService, useClass: MockLoggingService }
   ],
 })
 export class HeroesComponent implements OnInit {
@@ -28,3 +36,4 @@ export class HeroesComponent implements OnInit {
     this.selectedHero = hero;
   }
 }
+
