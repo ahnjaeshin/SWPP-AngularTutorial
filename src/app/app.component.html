@@ -1,1 +1,12 @@
 <h1>{{title}}</h1>
+<h2>Ch {{chapter+1}}</h2>
+<ol>
+  <li *ngFor="let instruction of recipes$ | async">
+    {{instruction}}
+  </li>
+</ol>
+
+<span>
+  <button (click)="prevRecipe()">Prev</button>
+  <button (click)="nextRecipe()">Next</button>
+</span>
