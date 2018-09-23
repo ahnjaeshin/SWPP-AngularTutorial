@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HEROES } from '../mock-heroes';
 
-import { Logger } from '../logging';
+import { LoggingService } from '../logging.service';
+
 
 @Component({
   selector: 'app-heroes',
@@ -15,17 +16,13 @@ export class HeroesComponent implements OnInit {
 
   selectedHero: Hero;
 
-  logger: Logger;
-
-  constructor() {
-    this.logger = new Logger();
-  }
+  constructor(private loggingService: LoggingService) { }
 
   ngOnInit() {
   }
 
   onSelect(hero: Hero): void {
-    this.logger.log(`Selected Hero: ${hero.name}`);
+    this.loggingService.log(`Selected Hero: ${hero.name}`);
     this.selectedHero = hero;
   }
 }
