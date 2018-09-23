@@ -13,6 +13,7 @@ export class HeroesComponent implements OnInit {
 
   selectedHero: Hero;
 
+  messages = [];
 
   constructor() { }
 
@@ -20,6 +21,7 @@ export class HeroesComponent implements OnInit {
   }
 
   onSelect(hero: Hero): void {
+    this.messages.push(`Selected Hero: ${hero.name}`);
     this.selectedHero = hero;
   }
 }
